@@ -355,12 +355,15 @@ def _render_team_calendar(t: dict):
     
     # Calendar grid
     days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    
+
+    # Pre-build day headers to avoid f-string issues
+    day_headers = ''.join([f'<div style="padding:1rem;text-align:center;font-weight:600;color:{t["text"]};border-right:1px solid {t["border"]};">{d}</div>' for d in days])
+
     st.markdown(f'''
     <div style="background:{t['card']};border:1px solid {t['border']};border-radius:16px;overflow:hidden;">
-        
+
         <div style="display:grid;grid-template-columns:repeat(7, 1fr);background:{t['bg_secondary']};">
-            {''.join([f'<div style="padding:1rem;text-align:center;font-weight:600;color:{t["text"]};border-right:1px solid {t["border"]};">{d}</div>' for d in days])}
+            {day_headers}
         </div>
         
         
