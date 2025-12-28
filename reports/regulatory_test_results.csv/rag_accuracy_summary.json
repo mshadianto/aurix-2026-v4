@@ -1,0 +1,14 @@
+{
+  "total_cases": 5,
+  "avg_faithfulness": 0.854,
+  "avg_answer_relevancy": 0.741,
+  "avg_context_precision": 0.649,
+  "avg_context_recall": 0.837,
+  "avg_overall_score": 0.77,
+  "hallucination_count": 1,
+  "hallucination_rate": 0.2,
+  "passed_threshold": true,
+  "threshold": 0.85,
+  "timestamp": "2025-12-28T23:21:29.245545",
+  "eval_framework": "ragas"
+}

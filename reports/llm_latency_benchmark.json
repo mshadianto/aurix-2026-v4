@@ -1,23 +1,23 @@
 {
   "benchmark_type": "llm_latency",
-  "timestamp": "2025-12-28T21:51:59.144668",
+  "timestamp": "2025-12-28T23:21:50.183610",
   "results": [
     {
       "provider": "mock",
       "model": "mock-model",
-      "total_iterations": 5,
-      "successful_iterations": 5,
+      "total_iterations": 50,
+      "successful_iterations": 50,
       "failed_iterations": 0,
-      "min_latency_ms": 0.020000001313746907,
-      "max_latency_ms": 0.06349999966914766,
-      "mean_latency_ms": 0.032020000071497634,
-      "median_latency_ms": 0.025899998945533298,
-      "std_dev_ms": 0.01789209287376445,
-      "p95_latency_ms": 0.06349999966914766,
-      "p99_latency_ms": 0.06349999966914766,
+      "min_latency_ms": 0.004400000761961564,
+      "max_latency_ms": 0.028200000087963417,
+      "mean_latency_ms": 0.00651400005153846,
+      "median_latency_ms": 0.005300000339047983,
+      "std_dev_ms": 0.0037375101746748465,
+      "p95_latency_ms": 0.012000000424450263,
+      "p99_latency_ms": 0.028200000087963417,
       "avg_tokens": 74.6,
-      "total_time_seconds": 0.0009937286376953125,
-      "timestamp": "2025-12-28T21:51:59.144668"
+      "total_time_seconds": 0.0009989738464355469,
+      "timestamp": "2025-12-28T23:21:50.182645"
     }
   ]
 }
