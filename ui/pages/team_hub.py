@@ -340,59 +340,54 @@ def _render_recognition(t: dict):
 def _render_team_calendar(t: dict):
     """Render team calendar."""
     st.markdown("### 📅 Team Calendar")
-    
-    # Calendar header
-    st.markdown(f'''
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-        <div style="display:flex;gap:0.5rem;">
-            <button style="background:{t['card']};border:1px solid {t['border']};padding:0.5rem 1rem;border-radius:8px;cursor:pointer;">◀</button>
-            <button style="background:{t['card']};border:1px solid {t['border']};padding:0.5rem 1rem;border-radius:8px;cursor:pointer;">▶</button>
-        </div>
-        <div style="font-size:1.25rem;font-weight:700;color:{t['text']};">January 2025</div>
-        <button style="background:{t['primary']};color:white;border:none;padding:0.5rem 1rem;border-radius:8px;cursor:pointer;">+ Add Event</button>
-    </div>
-    ''', unsafe_allow_html=True)
-    
-    # Calendar grid
+
+    # Calendar header with native Streamlit
+    col_nav1, col_nav2, col_title, col_add = st.columns([1, 1, 4, 2])
+    with col_nav1:
+        st.button("◀", key="cal_prev")
+    with col_nav2:
+        st.button("▶", key="cal_next")
+    with col_title:
+        st.markdown(f"<div style='text-align:center;font-size:1.25rem;font-weight:700;color:{t['text']};padding-top:0.5rem;'>January 2025</div>", unsafe_allow_html=True)
+    with col_add:
+        st.button("+ Add Event", type="primary", key="cal_add")
+
+    # Calendar grid using native columns
     days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-    # Pre-build day headers to avoid f-string issues
-    day_headers = ''.join([f'<div style="padding:1rem;text-align:center;font-weight:600;color:{t["text"]};border-right:1px solid {t["border"]};">{d}</div>' for d in days])
+    # Day headers
+    day_cols = st.columns(7)
+    for col, day in zip(day_cols, days):
+        with col:
+            st.markdown(f"<div style='text-align:center;font-weight:600;color:{t['text']};padding:0.5rem;background:{t['bg_secondary']};border-radius:8px;'>{day}</div>", unsafe_allow_html=True)
 
-    st.markdown(f'''
-    <div style="background:{t['card']};border:1px solid {t['border']};border-radius:16px;overflow:hidden;">
+    # Week 1 (partial)
+    week1_data = [
+        ("30", True, None), ("31", True, None), ("1", False, None), ("2", False, None),
+        ("3", False, None), ("4", True, None), ("5", True, None)
+    ]
+    week1_cols = st.columns(7)
+    for col, (day, is_muted, event) in zip(week1_cols, week1_data):
+        with col:
+            color = t['text_muted'] if is_muted else t['text']
+            st.markdown(f"<div style='padding:0.5rem;min-height:60px;border:1px solid {t['border']};border-radius:8px;color:{color};margin-top:0.25rem;'>{day}</div>", unsafe_allow_html=True)
 
-        <div style="display:grid;grid-template-columns:repeat(7, 1fr);background:{t['bg_secondary']};">
-            {day_headers}
-        </div>
-        
-        
-        <div style="display:grid;grid-template-columns:repeat(7, 1fr);">
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text_muted']};">30</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text_muted']};">31</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text']};">1</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text']};">2</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text']};">3</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text_muted']};">4</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text_muted']};">5</div>
-        </div>
-        
-        
-        <div style="display:grid;grid-template-columns:repeat(7, 1fr);">
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text']};">6</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text']};">7</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text']};">8
-                <div style="background:{t['primary']};color:white;padding:0.2rem 0.4rem;border-radius:4px;font-size:0.65rem;margin-top:0.25rem;">Credit Audit</div>
-            </div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text']};">9</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};background:{t['primary']}10;color:{t['text']};font-weight:600;">10
-                <div style="background:{t['warning']};color:white;padding:0.2rem 0.4rem;border-radius:4px;font-size:0.65rem;margin-top:0.25rem;">Team Meeting</div>
-            </div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text_muted']};">11</div>
-            <div style="padding:0.5rem;min-height:80px;border:1px solid {t['border']};color:{t['text_muted']};">12</div>
-        </div>
-    </div>
-    ''', unsafe_allow_html=True)
+    # Week 2
+    week2_data = [
+        ("6", False, None), ("7", False, None), ("8", False, "Credit Audit"),
+        ("9", False, None), ("10", False, "Team Meeting"), ("11", True, None), ("12", True, None)
+    ]
+    week2_cols = st.columns(7)
+    for col, (day, is_muted, event) in zip(week2_cols, week2_data):
+        with col:
+            color = t['text_muted'] if is_muted else t['text']
+            event_html = ""
+            if event == "Credit Audit":
+                event_html = f"<div style='background:{t['primary']};color:white;padding:0.2rem;border-radius:4px;font-size:0.6rem;margin-top:0.25rem;'>{event}</div>"
+            elif event == "Team Meeting":
+                event_html = f"<div style='background:{t['warning']};color:white;padding:0.2rem;border-radius:4px;font-size:0.6rem;margin-top:0.25rem;'>{event}</div>"
+            highlight = f"background:{t['primary']}15;" if day == "10" else ""
+            st.markdown(f"<div style='padding:0.5rem;min-height:60px;border:1px solid {t['border']};border-radius:8px;color:{color};margin-top:0.25rem;{highlight}'>{day}{event_html}</div>", unsafe_allow_html=True)
     
     # Upcoming events
     st.markdown("<br>", unsafe_allow_html=True)
