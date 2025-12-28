@@ -307,20 +307,20 @@ def render_section_title(title: str):
 def render_metric_grid(metrics: list):
     """
     Render a grid of metric cards using Streamlit columns.
-    
+
     Args:
         metrics: List of dicts with keys: label, value, change (optional), change_type (optional)
     """
     t = get_current_theme()
     cols = st.columns(len(metrics))
-    
+
     for col, m in zip(cols, metrics):
         with col:
             change_color = t['success'] if m.get('change_type', 'positive') == 'positive' else t['danger']
             change_html = ""
             if m.get('change'):
                 change_html = f'<div style="font-size:0.75rem;margin-top:0.25rem;color:{change_color};">{m["change"]}</div>'
-            
+
             st.markdown(f'''
             <div style="background:{t['card']};border:1px solid {t['border']};border-radius:12px;padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
                 <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:{t['text_muted']};margin-bottom:0.5rem;">{m['label']}</div>
@@ -328,3 +328,23 @@ def render_metric_grid(metrics: list):
                 {change_html}
             </div>
             ''', unsafe_allow_html=True)
+
+
+# ============================================
+# Executive Components (2026)
+# ============================================
+
+from ui.components.executive import (
+    KPIMetric,
+    SoWhatInsight,
+    ScenarioResult,
+    DataLineage,
+    TrendDirection,
+    RiskLevel,
+    render_executive_scorecard,
+    render_so_what_panel,
+    generate_so_what_insight,
+    render_flight_simulator,
+    render_data_lineage,
+    render_export_panel,
+)

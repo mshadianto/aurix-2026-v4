@@ -41,7 +41,7 @@ from ui.pages import (
     team_hub
 )
 # 2026 Excellence modules
-from ui.pages import process_mining, regulatory_rag
+from ui.pages import process_mining, regulatory_rag, executive_dashboard
 
 
 class Router:
@@ -55,6 +55,7 @@ class Router:
         self.routes: Dict[str, Callable] = {
             # Main
             "📊 Dashboard": dashboard.render,
+            "🏛️ Executive Dashboard": executive_dashboard.render,
             "🎛️ Command Center": command_center.render,
             "📁 Documents": documents.render,
             "🎭 PTCF Builder": ptcf_builder.render,
@@ -93,6 +94,7 @@ class Router:
         self.page_categories = {
             "Main": [
                 "📊 Dashboard",
+                "🏛️ Executive Dashboard",
                 "🎛️ Command Center",
                 "📁 Documents",
                 "🎭 PTCF Builder",
