@@ -1,0 +1,10 @@
+# Abaikan credentials/rahasia
+.streamlit/secrets.toml
+
+# Abaikan folder environment & sampah python
+venv/
+__pycache__/
+*.pyc
+
+# Abaikan file sistem
+.DS_Store

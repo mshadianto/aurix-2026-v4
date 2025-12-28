@@ -1,0 +1,23 @@
+{
+  "benchmark_type": "llm_latency",
+  "timestamp": "2025-12-28T21:51:59.144668",
+  "results": [
+    {
+      "provider": "mock",
+      "model": "mock-model",
+      "total_iterations": 5,
+      "successful_iterations": 5,
+      "failed_iterations": 0,
+      "min_latency_ms": 0.020000001313746907,
+      "max_latency_ms": 0.06349999966914766,
+      "mean_latency_ms": 0.032020000071497634,
+      "median_latency_ms": 0.025899998945533298,
+      "std_dev_ms": 0.01789209287376445,
+      "p95_latency_ms": 0.06349999966914766,
+      "p99_latency_ms": 0.06349999966914766,
+      "avg_tokens": 74.6,
+      "total_time_seconds": 0.0009937286376953125,
+      "timestamp": "2025-12-28T21:51:59.144668"
+    }
+  ]
+}

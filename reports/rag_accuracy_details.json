@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "question": "Apa threshold NPL ratio menurut regulasi OJK?",
+      "faithfulness": 0.5,
+      "answer_relevancy": 1.0,
+      "context_precision": 0.25,
+      "context_recall": 0.875,
+      "overall_score": 0.656,
+      "is_hallucination": true,
+      "details": {
+        "method": "simplified_keyword_matching"
+      }
+    },
+    {
+      "question": "Bagaimana klasifikasi ESG Taxonomy menurut POJK 6/2022?",
+      "faithfulness": 0.882,
+      "answer_relevancy": 0.333,
+      "context_precision": 0.75,
+      "context_recall": 0.667,
+      "overall_score": 0.658,
+      "is_hallucination": false,
+      "details": {
+        "method": "simplified_keyword_matching"
+      }
+    },
+    {
+      "question": "Apa saja 3 lines of defense dalam manajemen risiko?",
+      "faithfulness": 0.938,
+      "answer_relevancy": 0.571,
+      "context_precision": 0.643,
+      "context_recall": 0.643,
+      "overall_score": 0.699,
+      "is_hallucination": false,
+      "details": {
+        "method": "simplified_keyword_matching"
+      }
+    },
+    {
+      "question": "Apa itu Benford's Law dalam deteksi fraud?",
+      "faithfulness": 0.95,
+      "answer_relevancy": 0.8,
+      "context_precision": 0.6,
+      "context_recall": 1.0,
+      "overall_score": 0.838,
+      "is_hallucination": false,
+      "details": {
+        "method": "simplified_keyword_matching"
+      }
+    },
+    {
+      "question": "Berapa target pembiayaan berkelanjutan menurut POJK 51/2017?",
+      "faithfulness": 1.0,
+      "answer_relevancy": 1.0,
+      "context_precision": 1.0,
+      "context_recall": 1.0,
+      "overall_score": 1.0,
+      "is_hallucination": false,
+      "details": {
+        "method": "simplified_keyword_matching"
+      }
+    }
+  ],
+  "timestamp": "2025-12-28T21:52:36.663341"
+}

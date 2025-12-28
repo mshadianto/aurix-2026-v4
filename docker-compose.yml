@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  # =============================================================================
+  # AURIX Application
+  # =============================================================================
+  aurix:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aurix-app
+    ports:
+      - "8501:8501"
+    environment:
+      - APP_NAME=AURIX
+      - APP_ENV=production
+      - DEBUG=false
+      - DATABASE_URL=postgresql://aurix:aurix_password@postgres:5432/aurix
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - TOGETHER_API_KEY=${TOGETHER_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - aurix-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # =============================================================================
+  # PostgreSQL Database
+  # =============================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: aurix-postgres
+    environment:
+      - POSTGRES_USER=aurix
+      - POSTGRES_PASSWORD=aurix_password
+      - POSTGRES_DB=aurix
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - aurix-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aurix -d aurix"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =============================================================================
+  # ChromaDB Vector Store (Optional)
+  # =============================================================================
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: aurix-chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - CHROMA_SERVER_AUTH_CREDENTIALS=${CHROMA_AUTH_TOKEN:-}
+      - CHROMA_SERVER_AUTH_PROVIDER=chromadb.auth.token.TokenAuthServerProvider
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    networks:
+      - aurix-network
+    restart: unless-stopped
+
+  # =============================================================================
+  # Ollama Local LLM (Optional)
+  # =============================================================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: aurix-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - aurix-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  aurix-network:
+    driver: bridge
+
+# =============================================================================
+# Volumes
+# =============================================================================
+volumes:
+  postgres_data:
+    driver: local
+  chroma_data:
+    driver: local
+  ollama_data:
+    driver: local
