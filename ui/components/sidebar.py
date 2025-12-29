@@ -12,55 +12,10 @@ from ui.styles.css_builder import get_current_theme
 from ui.components.badges import render_badge
 
 
-def get_logo_svg() -> str:
-    """Generate AURIX logo SVG with Royal Purple & Gold theme."""
-    t = get_current_theme()
-    primary = t['primary']
-    gold = t.get('gold', t['accent'])
-
-    return f'''<svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<defs>
-    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:{primary};stop-opacity:1" />
-        <stop offset="100%" style="stop-color:{gold};stop-opacity:1" />
-    </linearGradient>
-    <filter id="glow">
-        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-        <feMerge>
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-    </filter>
-</defs>
-<path d="M50 8 L90 25 L90 55 C90 78 70 92 50 98 C30 92 10 78 10 55 L10 25 Z" fill="url(#shieldGrad)" filter="url(#glow)"/>
-<circle cx="50" cy="48" r="8" fill="{gold}" opacity="0.95"/>
-<circle cx="35" cy="33" r="4" fill="white" opacity="0.85"/>
-<circle cx="65" cy="33" r="4" fill="white" opacity="0.85"/>
-<circle cx="30" cy="55" r="4" fill="white" opacity="0.85"/>
-<circle cx="70" cy="55" r="4" fill="white" opacity="0.85"/>
-<circle cx="50" cy="72" r="4" fill="{gold}" opacity="0.9"/>
-<line x1="50" y1="48" x2="35" y2="33" stroke="{gold}" stroke-width="2" opacity="0.6"/>
-<line x1="50" y1="48" x2="65" y2="33" stroke="{gold}" stroke-width="2" opacity="0.6"/>
-<line x1="50" y1="48" x2="30" y2="55" stroke="white" stroke-width="2" opacity="0.5"/>
-<line x1="50" y1="48" x2="70" y2="55" stroke="white" stroke-width="2" opacity="0.5"/>
-<line x1="50" y1="48" x2="50" y2="72" stroke="{gold}" stroke-width="2" opacity="0.7"/>
-</svg>'''
-
-
 def render_logo():
-    """Render AURIX logo with premium branding."""
-    t = get_current_theme()
-    gold = t.get('gold', t['accent'])
-
-    st.markdown(f'''
-    <div class="logo-container" style="background:linear-gradient(135deg, {t['card']} 0%, {t['bg_secondary']} 100%);border-bottom:1px solid {gold}30;">
-        {get_logo_svg()}
-        <div>
-            <div class="logo-text" style="background:linear-gradient(135deg, {t['text']} 0%, {gold} 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AURIX</div>
-            <div class="logo-tagline" style="color:{gold} !important;">v4.2 Excellence 2026</div>
-        </div>
-    </div>
-    ''', unsafe_allow_html=True)
+    """Render AURIX logo with native Streamlit."""
+    st.markdown("### 🛡️ AURIX")
+    st.caption("v4.2 Excellence 2026")
 
 
 def render_theme_toggle():
@@ -79,156 +34,139 @@ def render_theme_toggle():
 
 
 # ============================================
-# GROUPED NAVIGATION - 2026 Enhancement
+# COMPACT NAVIGATION - Premium 2026
 # ============================================
 
-# Define navigation groups with their pages
-NAVIGATION_GROUPS = {
-    "🎯 Core Audit": {
-        "expanded": True,
-        "badge": None,
-        "pages": [
-            "📊 Dashboard",
-            "🎛️ Command Center",
-            "📁 Documents",
-            "🎭 PTCF Builder",
-            "⚖️ Risk Assessment",
-            "📋 Findings Tracker",
-            "📝 Workpapers",
-        ]
-    },
-    "🔬 Audit Tools": {
-        "expanded": False,
-        "badge": None,
-        "pages": [
-            "🌐 Risk Universe",
-            "📌 Issue Tracker",
-            "📅 Audit Planning",
-            "📆 Audit Timeline",
-            "🔬 Root Cause Analyzer",
-            "🧮 Sampling Calculator",
-        ]
-    },
-    "🧠 Intelligence": {
-        "expanded": True,
-        "badge": "3 Alerts",
-        "pages": [
-            "🔄 Continuous Audit",
-            "📈 KRI Dashboard",
-            "🔍 Fraud Detection",
-            "🔄 Process Mining",
-            "📜 Regulatory RAG",
-            "📊 Analytics",
-        ]
-    },
-    "🧪 Labs": {
-        "expanded": False,
-        "badge": "Beta",
-        "pages": [
-            "🧪 AI Lab",
-            "📑 Report Builder",
-        ]
-    },
-    "👥 Collaboration": {
-        "expanded": False,
-        "badge": None,
-        "pages": [
-            "👥 Team Hub",
-            "🎮 Gamification",
-        ]
-    },
-    "⚙️ Admin": {
-        "expanded": False,
-        "badge": None,
-        "pages": [
-            "📚 Regulations",
-            "⚙️ Settings",
-            "❓ Help",
-            "ℹ️ About",
-        ]
-    }
+# Simplified navigation structure
+NAVIGATION_SECTIONS = {
+    "MAIN": [
+        "📊 Dashboard",
+        "🎛️ Command Center",
+        "📋 Findings Tracker",
+    ],
+    "AUDIT": [
+        "📁 Documents",
+        "📝 Workpapers",
+        "⚖️ Risk Assessment",
+        "🎭 PTCF Builder",
+        "📅 Audit Planning",
+    ],
+    "ANALYTICS": [
+        "📈 KRI Dashboard",
+        "🔄 Continuous Audit",
+        "🔍 Fraud Detection",
+        "📊 Analytics",
+        "🔄 Process Mining",
+    ],
+    "TOOLS": [
+        "🌐 Risk Universe",
+        "📌 Issue Tracker",
+        "🔬 Root Cause Analyzer",
+        "🧮 Sampling Calculator",
+        "📆 Audit Timeline",
+    ],
+    "MORE": [
+        "📜 Regulatory RAG",
+        "🧪 AI Lab",
+        "📑 Report Builder",
+        "👥 Team Hub",
+        "🎮 Gamification",
+        "⚙️ Settings",
+    ],
 }
 
 
-def render_grouped_navigation(routes: List[str], categories: Dict[str, List[str]]) -> str:
-    """
-    Render grouped navigation with expandable sections.
-    """
-    t = get_current_theme()
-    
-    if 'current_page' not in st.session_state:
-        st.session_state.current_page = "📊 Dashboard"
-    
-    selected_page = st.session_state.current_page
-    
-    for group_name, group_config in NAVIGATION_GROUPS.items():
-        available_pages = [p for p in group_config["pages"] if p in routes or p in ["🔄 Process Mining", "📜 Regulatory RAG"]]
-        
-        if not available_pages:
-            continue
-        
-        with st.expander(f"**{group_name}**", expanded=group_config["expanded"]):
-            # Show badge if exists
-            if group_config.get("badge"):
-                badge_color = '#DC3545' if 'Alert' in str(group_config['badge']) else '#6C757D'
-                st.markdown(f'''
-                <span style="background:{badge_color};color:white;font-size:0.65rem;padding:0.15rem 0.5rem;border-radius:8px;">
-                    {group_config['badge']}
-                </span>
-                ''', unsafe_allow_html=True)
-            
-            for page_name in available_pages:
-                is_active = selected_page == page_name
-                button_type = "primary" if is_active else "secondary"
-                
-                if st.button(
-                    page_name,
-                    key=f"nav_{page_name}",
-                    use_container_width=True,
-                    type=button_type
-                ):
-                    st.session_state.current_page = page_name
-                    selected_page = page_name
-                    st.rerun()
-    
-    return selected_page
-
-
-def render_session_stats():
-    """Render session statistics with premium styling."""
+def render_compact_navigation(routes: List[str]) -> str:
+    """Render compact navigation with tabs and selectbox."""
     t = get_current_theme()
     gold = t.get('gold', t['accent'])
 
+    if 'current_page' not in st.session_state:
+        st.session_state.current_page = "📊 Dashboard"
+
+    # Section selector
+    section_labels = {
+        "MAIN": "🎯 Main",
+        "AUDIT": "📋 Audit",
+        "ANALYTICS": "📊 Analytics",
+        "TOOLS": "🔧 Tools",
+        "MORE": "⚙️ More",
+    }
+
+    # Find current section
+    current_section = "MAIN"
+    for section, pages in NAVIGATION_SECTIONS.items():
+        if st.session_state.current_page in pages:
+            current_section = section
+            break
+
+    # Section tabs
+    sections = list(section_labels.keys())
+    cols = st.columns(len(sections))
+
+    for i, (col, section) in enumerate(zip(cols, sections)):
+        with col:
+            is_active = section == current_section
+            if st.button(
+                section_labels[section].split()[0],  # Just emoji
+                key=f"sec_{section}",
+                use_container_width=True,
+                type="primary" if is_active else "secondary"
+            ):
+                # Switch to first page of section
+                available = [p for p in NAVIGATION_SECTIONS[section] if p in routes or p in ["🔄 Process Mining", "📜 Regulatory RAG"]]
+                if available:
+                    st.session_state.current_page = available[0]
+                    st.rerun()
+
+    # Page list for current section
+    available_pages = [p for p in NAVIGATION_SECTIONS[current_section]
+                       if p in routes or p in ["🔄 Process Mining", "📜 Regulatory RAG"]]
+
+    if available_pages:
+        selected = st.radio(
+            "Navigate",
+            available_pages,
+            index=available_pages.index(st.session_state.current_page) if st.session_state.current_page in available_pages else 0,
+            key="nav_radio",
+            label_visibility="collapsed"
+        )
+
+        if selected != st.session_state.current_page:
+            st.session_state.current_page = selected
+            st.rerun()
+
+    return st.session_state.current_page
+
+
+def render_grouped_navigation(routes: List[str], categories: Dict[str, List[str]]) -> str:
+    """Wrapper for backward compatibility."""
+    return render_compact_navigation(routes)
+
+
+def render_session_stats():
+    """Render session statistics using native Streamlit."""
     doc_count = len(st.session_state.get('documents', []))
     finding_count = len(st.session_state.get('findings', []))
 
-    st.markdown(f'''
-    <div class="pro-card pro-card-gold" style="padding:1rem;">
-        <div style="font-size:0.7rem;color:{gold};text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;font-weight:600;">Quick Stats</div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;padding:0.25rem 0;">
-            <span style="color:{t['text_muted']} !important;font-size:0.8rem;">Documents</span>
-            <span style="color:{t['text']} !important;font-weight:700;">{doc_count}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;padding:0.25rem 0;">
-            <span style="color:{t['text_muted']} !important;font-size:0.8rem;">Findings</span>
-            <span style="color:{t['danger']} !important;font-weight:700;">{finding_count}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:0.25rem 0;">
-            <span style="color:{t['text_muted']} !important;font-size:0.8rem;">KRI Alerts</span>
-            <span style="color:{t['warning']} !important;font-weight:700;">3</span>
-        </div>
-    </div>
-    ''', unsafe_allow_html=True)
+    st.caption("📊 QUICK STATS")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Docs", doc_count)
+    with col2:
+        st.metric("Findings", finding_count)
+    with col3:
+        st.metric("Alerts", 3)
 
 
 def render_llm_config():
     """Render LLM configuration section."""
     from app.constants import LLM_PROVIDER_INFO
-    
-    st.markdown('<div class="section-title">AI Provider</div>', unsafe_allow_html=True)
-    
+
+    st.caption("🤖 AI PROVIDER")
+
     providers = list(LLM_PROVIDER_INFO.keys())
-    
+
     provider = st.selectbox(
         "Provider",
         providers,
@@ -236,9 +174,9 @@ def render_llm_config():
         label_visibility="collapsed",
         format_func=lambda x: f"{LLM_PROVIDER_INFO[x]['name']} {'🆓' if LLM_PROVIDER_INFO[x]['free'] else '💎'}"
     )
-    
+
     info = LLM_PROVIDER_INFO.get(provider, {})
-    
+
     if provider not in ['mock', 'ollama']:
         st.text_input(
             "API Key",
@@ -247,43 +185,29 @@ def render_llm_config():
             label_visibility="collapsed",
             placeholder="Enter API key..."
         )
-    
+
     if info.get('url'):
-        st.markdown(
-            f"<small><a href='{info['url']}' target='_blank'>Get API Key →</a></small>",
-            unsafe_allow_html=True
-        )
+        st.link_button("Get API Key →", info['url'], use_container_width=True)
 
 
 def render_sidebar(routes: List[str], categories: Dict[str, List[str]]) -> str:
-    """
-    Render complete sidebar with grouped navigation.
-    """
-    t = get_current_theme()
-
+    """Render compact sidebar with navigation."""
     with st.sidebar:
         render_logo()
         render_theme_toggle()
-        
-        st.markdown("<br>", unsafe_allow_html=True)
-        
+
+        st.divider()
+
         selected_page = render_grouped_navigation(routes, categories)
-        
-        st.markdown("<br>", unsafe_allow_html=True)
-        
+
+        st.divider()
+
         render_session_stats()
-        
-        st.markdown("<br>", unsafe_allow_html=True)
-        
+
+        st.divider()
+
         render_llm_config()
-        
-        gold = t.get('gold', t['accent'])
-        st.markdown(f'''
-        <div style="margin-top:1rem;padding:0.75rem;background:linear-gradient(135deg, {t['primary']}15, {gold}10);border:1px solid {t['primary']}20;border-radius:10px;text-align:center;">
-            <span style="font-size:0.75rem;color:{t['text_muted']};">
-                💡 Press <strong style="color:{gold};">🤖</strong> button for AI Copilot
-            </span>
-        </div>
-        ''', unsafe_allow_html=True)
+
+        st.caption("💡 Press 🤖 for AI Copilot")
 
     return selected_page

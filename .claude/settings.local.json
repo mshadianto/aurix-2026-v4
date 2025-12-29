@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest:*)",
+      "Bash(git add:*)",
+      "Bash(streamlit run:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nUpdate README.md with Executive Dashboard and benchmarking docs\n\n- Add Executive Dashboard to What''s New section\n- Add Benchmarking & Quality Assurance features\n- Update project structure with new files\n- Add Executive Features table in Features Overview\n- Add Executive Dashboard usage examples with code\n- Add benchmarking commands and thresholds\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd Conformance Twin and Anti-Fraud Agent modules\n\nConformance Twin \\(process_mining.py\\):\n- Add Pydantic models: SOPSchema, SOPActivity, ConformanceResult\n- Implement conformance_twin_analysis\\(\\) for DFG vs SOP comparison\n- Include LOAN_APPROVAL_SOP with 7 activities and timing constraints\n- Detect missing activities, sequence violations, timing breaches\n\nAnti-Fraud Agent \\(anti_fraud_agent.py\\):\n- New AML/APU-PPT module per Indonesian regulations \\(POJK 12/2017\\)\n- Detect structuring, rapid movement, velocity anomalies\n- Detect large cash \\(>IDR 500M\\), high-risk jurisdictions\n- SAR narrative generation with LLM integration\n- Pydantic models for all inputs/outputs\n\nTests:\n- 15 tests for conformance twin functionality\n- 22 tests for anti-fraud agent detection rules\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(cat:*)",
+      "Bash(python scripts/benchmark_llm_latency.py:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
